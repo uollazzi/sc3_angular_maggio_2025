@@ -105,10 +105,15 @@ export class PostsService {
     ]
   };
 
+  selectedCategory?: PostCategory;
+
+  preferiti: Post[] = [];
+
   constructor() { }
 
   getPosts(): Post[] {
     // qui normalmente ci sarebbe una richiesta ajax
+    this.selectedCategory = undefined;
     return this.data.posts;
   }
 
@@ -117,6 +122,32 @@ export class PostsService {
   }
 
   getPostsByCategory(category: PostCategory) {
+    // qui normalmente ci sarebbe una richiesat ajax per recuperare posts filtrati SUL SERVER
+    // es https://www.amazon.com/prodotti?q=travel&limit=10&skip=20
+    this.selectedCategory = category;
     return this.data.posts.filter(x => x.category == category.id);
+  }
+
+  aggiungiAPreferiti(post: Post) {
+    // qui normalmente ci sarebbe una richiesta ajax che salva il post tra i miei preferiti SUL SERVER
+    if (!this.preferiti.includes(post)) {
+      this.preferiti.push(post);
+    }
+  }
+
+  rimuoviDaPreferiti(post: Post) {
+    // alternativa 1 con find
+    // let p = this.preferiti.find(x => x == post);
+
+    // if (p) {
+    //   this.preferiti.splice(this.preferiti.indexOf(p), 1);
+    // }
+
+    // alternativa 2 con filter
+    this.preferiti = this.preferiti.filter(p => p != post);
+  }
+
+  svuotaPreferiti() {
+    this.preferiti = [];
   }
 }

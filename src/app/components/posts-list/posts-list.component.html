@@ -1,7 +1,21 @@
 <h2>Posts</h2>
 <div class="btn-group mb-2" role="group">
+  <button
+    type="button"
+    class="btn btn-outline-secondary"
+    [ngClass]="{ active: ps.selectedCategory == undefined }"
+    (click)="filter()"
+  >
+    Tutti
+  </button>
+
   @for (c of categories; track $index) {
-  <button type="button" class="btn btn-outline-secondary">
+  <button
+    type="button"
+    class="btn btn-outline-secondary"
+    [ngClass]="{ active: ps.selectedCategory == c }"
+    (click)="filter(c)"
+  >
     {{ c.title }}
   </button>
   }
